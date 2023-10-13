@@ -25,9 +25,10 @@ router.get("/get/:id", async (req, res) => {
         };
 
         const obj = JSON.parse(result[0].attendance);
+        obj.att.shift()
 
         Object.assign(send, obj);
-        res.json(result);
+        res.json(send);
     } catch (error) {
         console.log(error);
         res.status(501).send("ERROR");

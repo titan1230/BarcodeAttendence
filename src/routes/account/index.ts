@@ -4,16 +4,16 @@ import { checkPassword, hashPassword } from "../../utils/functions";
 
 const router = Router()
 
-router.put("/login/:id", async (req, res) => {
-    const id = req.params.id;
-    const { pass } = req.body;
+// ==> /account/*
+router.post("/login", async (req, res) => {
+    const { id, pass } = req.body;
 
     if (!pass) return res.status(400).send("BAD REQUEST.");
 
     let conn;
     try {
         conn = await pool.getConnection();
-        const data = await conn.query(`SELECT pass FROM WHERE id=?`, [id]);
+        const data = await conn.query(`SELECT password,studentID FROM student WHERE studentID=?`, [id]);
 
         if (!data[0]) return res.status(400).send("BAD REQUEST.");
         
